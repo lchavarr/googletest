@@ -3,6 +3,14 @@ trigger: none
 pool:
   name: 'Prime_Evg'
 
+variables:
+  major: 1
+  minor: 10
+  patch: 0
+  nuspecPath: '$(System.DefaultWorkingDirectory)/prime/gmock.nuspec'
+
+name: $(major).$(minor).$(patch)-prime$(Rev:.r)
+
 steps:
 - task: CMake@1
   displayName: Cmake for TOS38
@@ -40,3 +48,16 @@ steps:
     msbuildArchitecture: 'x64'
     configuration: 'Release'
     maximumCpuCount: true
+- task: PowerShell@2
+  displayName: Update version in the nuspec
+  inputs:
+    filePath: 'prime\update-version.ps1'
+    arguments: '$(Build.BuildNumber) $(nuspecPath)'
+    # pwsh: true
+    errorActionPreference: 'stop'
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '$(nuspecPath)'
+    versioningScheme: 'off'
+    basePath: '$(System.DefaultWorkingDirectory)'
