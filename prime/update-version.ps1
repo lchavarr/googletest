@@ -4,5 +4,5 @@ $FullPath = $args[1]
 Write-Host "File=[$FullPath]."
 
 [xml]$content = Get-Content $FullPath
-$content.package.metadata.version.InnerText = $version
+$content.package.metadata.version.value = $version
 $content.Save($FullPath)
