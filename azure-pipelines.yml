@@ -23,7 +23,7 @@ steps:
   displayName: Cmake for TOS36
   inputs:
     workingDirectory: 
-    cmakeArgs: '-S . -G "cmake -S . -G "Visual Studio 15 2017 Win64" -B TOS36 -Dgtest_force_shared_crt=ON'
+    cmakeArgs: '-S . -G "Visual Studio 15 2017 Win64" -B TOS36 -Dgtest_force_shared_crt=ON'
 - task: MSBuild@1
   displayName: Build TOS38
   inputs:
