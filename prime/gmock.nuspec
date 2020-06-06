@@ -19,35 +19,15 @@
          <!-- Project URL provides a link for the gallery -->
         <projectUrl>https://github.com/google/googletest</projectUrl>
 
-         <!-- License information is displayed on the gallery -->
-        <license type="expression">Intel-ACPI</license>
-
-        <!-- 
-            If true, this value prompts the user to accept the license when
-            installing the package. 
-        -->
-        <requireLicenseAcceptance>false</requireLicenseAcceptance>
-
-        <!-- Any details about this particular release -->
-        <releaseNotes>NA.</releaseNotes>
-
         <!-- 
             The description can be used in package manager UI. Note that the
             nuget.org gallery uses information you add in the portal. 
         -->
         <description>Package contaning the binary compilation of GoolgleMock for Prime's requirements.</description>
 
-        <!-- Copyright information -->
-        <copyright>Copyright (2005) (2020) Intel Corporation</copyright>
-
         <!-- Tags appear in the gallery and can be used for tag searches -->
         <tags>EVG Evergreen Prime native Native GMock GoogleMock GoogleTest</tags>
         <language>C++</language>
-
-        <!-- Dependencies are automatically installed when the package is installed -->
-        <dependencies>
-            <!-- <dependency id="Newtonsoft.Json" version="9.0" /> -->
-        </dependencies>
     </metadata>
 
     <!-- A readme.txt to display when the package is installed -->
