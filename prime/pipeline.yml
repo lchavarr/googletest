@@ -1,0 +1,42 @@
+trigger: none
+
+pool:
+  name: 'Prime_Evg'
+
+steps:
+- task: CMake@1
+  displayName: Cmake for TOS38
+  inputs:
+    workingDirectory: 
+    cmakeArgs: '-S . -G "Visual Studio 15 2017 Win64" -B TOS38 -DCMAKE_CXX_STANDARD=17 -Dgtest_force_shared_crt=ON'
+- task: CMake@1
+  displayName: Cmake for TOS37
+  inputs:
+    workingDirectory: 
+    cmakeArgs: '-S . -G "Visual Studio 15 2017 Win64" -B TOS37 -DCMAKE_CXX_STANDARD=17 -Dgtest_force_shared_crt=ON'
+- task: CMake@1
+  displayName: Cmake for TOS36
+  inputs:
+    workingDirectory: 
+    cmakeArgs: '-S . -G "Visual Studio 15 2017 Win64" -B TOS36 -Dgtest_force_shared_crt=ON'
+- task: MSBuild@1
+  displayName: Build TOS38
+  inputs:
+    solution: 'TOS38\googlemock\gmock.sln'
+    msbuildArchitecture: 'x64'
+    configuration: 'Release'
+    maximumCpuCount: true
+- task: MSBuild@1
+  displayName: Build TOS37
+  inputs:
+    solution: 'TOS37\googlemock\gmock.sln'
+    msbuildArchitecture: 'x64'
+    configuration: 'Release'
+    maximumCpuCount: true
+- task: MSBuild@1
+  displayName: Build TOS36
+  inputs:
+    solution: 'TOS37\googlemock\gmock.sln'
+    msbuildArchitecture: 'x64'
+    configuration: 'Release'
+    maximumCpuCount: true
