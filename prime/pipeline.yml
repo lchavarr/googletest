@@ -12,6 +12,7 @@ variables:
 name: $(major).$(minor).$(patch)-prime$(Rev:.r)
 
 steps:
+- task: NuGetToolInstaller@1
 - task: CMake@1
   displayName: Cmake for TOS38
   inputs:
@@ -44,20 +45,35 @@ steps:
 - task: MSBuild@1
   displayName: Build TOS36
   inputs:
-    solution: 'TOS37\googlemock\gmock.sln'
+    solution: 'TOS36\googlemock\gmock.sln'
     msbuildArchitecture: 'x64'
     configuration: 'Release'
     maximumCpuCount: true
-- task: PowerShell@2
-  displayName: Update version in the nuspec
-  inputs:
-    filePath: 'prime\update-version.ps1'
-    arguments: '$(Build.BuildNumber) $(nuspecPath)'
-    # pwsh: true
-    errorActionPreference: 'stop'
+# - task: PowerShell@2
+#   displayName: Update version in the nuspec
+#   inputs:
+#     filePath: 'prime\update-version.ps1'
+#     arguments: '$(Build.BuildNumber) $(nuspecPath)'
+#     # pwsh: true
+#     errorActionPreference: 'stop'
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
     packagesToPack: '$(nuspecPath)'
-    versioningScheme: 'off'
     basePath: '$(System.DefaultWorkingDirectory)'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: 'BUILD_BUILDNUMBER'
+    includeNuGetOrg: false
+    packDestination: '$(Build.ArtifactStagingDirectory)'
+- task: PublishBuildArtifacts@1
+  displayName: 'Publishing ArtifactStagingDirectory'
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: gmock-prime
+- task: NuGetCommand@2
+  displayName: 'Publishing To gmock-prime Feed'
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '06104e09-2541-4797-9c23-c127cce1f8a8'
