@@ -14,10 +14,15 @@ name: $(major).$(minor).$(patch)-prime$(Rev:.r)
 steps:
 - task: NuGetToolInstaller@1
 - task: CMake@1
+  displayName: Cmake for TOS39
+  inputs:
+    workingDirectory: 
+    cmakeArgs: '-S . -G "Visual Studio 16 2019" -A "x64" -B TOS39 -DCMAKE_CXX_STANDARD=17 -Dgtest_force_shared_crt=ON'
+- task: CMake@1
   displayName: Cmake for TOS38
   inputs:
     workingDirectory: 
-    cmakeArgs: '-S . -G "Visual Studio 15 2017 Win64" -B TOS38 -DCMAKE_CXX_STANDARD=17 -Dgtest_force_shared_crt=ON'
+    cmakeArgs: '-S . -G  "Visual Studio 16 2019" -A "x64" -B TOS38 -DCMAKE_CXX_STANDARD=17 -Dgtest_force_shared_crt=ON'
 - task: CMake@1
   displayName: Cmake for TOS37
   inputs:
@@ -32,6 +37,13 @@ steps:
   displayName: Build TOS38
   inputs:
     solution: 'TOS38\googlemock\gmock.sln'
+    msbuildArchitecture: 'x64'
+    configuration: 'Release'
+    maximumCpuCount: true
+- task: MSBuild@1
+  displayName: Build TOS39
+  inputs:
+    solution: 'TOS39\googlemock\gmock.sln'
     msbuildArchitecture: 'x64'
     configuration: 'Release'
     maximumCpuCount: true
