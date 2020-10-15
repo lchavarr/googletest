@@ -36,6 +36,7 @@
         <file src="TOS36\lib\Release\gmock.lib" target="lib\TOS36\Release\" />
         <file src="TOS37\lib\Release\gmock.lib" target="lib\TOS37\Release\" />
         <file src="TOS38\lib\Release\gmock.lib" target="lib\TOS38\Release\" />
+        <file src="TOS39\lib\Release\gmock.lib" target="lib\TOS39\Release\" />
         <file src="googlemock\include\gmock\**" target="include\gmock" />
         <file src="googletest\include\gtest\**" target="include\gtest" />
     </files>
