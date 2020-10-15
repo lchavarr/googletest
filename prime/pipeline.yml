@@ -34,16 +34,16 @@ steps:
     workingDirectory: 
     cmakeArgs: '-S . -G "Visual Studio 15 2017 Win64" -B TOS36 -Dgtest_force_shared_crt=ON'
 - task: MSBuild@1
-  displayName: Build TOS38
+  displayName: Build TOS39
   inputs:
-    solution: 'TOS38\googlemock\gmock.sln'
+    solution: 'TOS39\googlemock\gmock.sln'
     msbuildArchitecture: 'x64'
     configuration: 'Release'
     maximumCpuCount: true
 - task: MSBuild@1
-  displayName: Build TOS39
+  displayName: Build TOS38
   inputs:
-    solution: 'TOS39\googlemock\gmock.sln'
+    solution: 'TOS38\googlemock\gmock.sln'
     msbuildArchitecture: 'x64'
     configuration: 'Release'
     maximumCpuCount: true
